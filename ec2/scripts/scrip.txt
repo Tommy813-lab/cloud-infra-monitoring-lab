@@ -1,0 +1,7 @@
+# Requires AWS Tools for PowerShell installed and configured
+param(
+    [string]$InstanceId = "i-0123456789abcdef0"
+)
+
+Write-Host "Starting EC2 instance $InstanceId"
+Start-EC2Instance -InstanceId $InstanceId

@@ -1,0 +1,9 @@
+# AWS Infrastructure Architecture
+
+This project sets up the core AWS infrastructure for monitoring and storage:
+
+- **EC2**: Hosts application servers.
+- **S3**: Stores static assets and logs.
+- **CloudWatch**: Monitors EC2 metrics and collects logs for analysis.
+
+The architecture ensures scalability and reliability with real-time alerts.

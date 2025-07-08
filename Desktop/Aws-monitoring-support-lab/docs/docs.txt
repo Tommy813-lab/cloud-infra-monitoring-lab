@@ -1,0 +1,101 @@
+# AWS Monitor Support Lab
+
+## Overview
+This project demonstrates a manual deployment of an AWS monitoring setup using EC2 and CloudWatch. It covers creating an IAM role, launching an EC2 instance with monitoring enabled, installing the CloudWatch Agent, and setting up alarms and dashboards.
+
+---
+
+## Features
+- EC2 instance running Amazon Linux 2 with CloudWatch Agent
+- IAM Role with `CloudWatchAgentServerPolicy` attached
+- CloudWatch alarms on key metrics such as CPU utilization
+- Custom dashboards for real-time monitoring visualization
+- Step-by-step manual deployment instructions
+
+---
+
+## Architecture Diagram
+
+Below is a simple architecture overview illustrating the main components:
+
++----------------------+ +-----------------------+
+| | | |
+| EC2 Instance | | CloudWatch |
+| (Amazon Linux 2) | <----> | Metrics, Logs, |
+| - CloudWatch Agent | | Alarms, Dashboards |
+| - IAM Role attached | | |
++----------------------+ +-----------------------+
+|
+|
+v
++----------------+
+| IAM Role |
+| CloudWatchAgent|
+| ServerPolicy |
++----------------+
+
+yaml
+Copy
+Edit
+
+---
+
+## Prerequisites
+- AWS account with permissions to manage EC2, IAM, and CloudWatch
+- Access to AWS Console or AWS CLI
+- Basic knowledge of AWS services
+
+---
+
+## Deployment Steps
+
+### 1. Create IAM Role
+- Create IAM role trusted by EC2 service
+- Attach AWS managed policy `CloudWatchAgentServerPolicy`
+- Name the role (e.g., `EC2_CloudWatch_Monitoring_Role`)
+
+### 2. Launch EC2 Instance
+- Use Amazon Linux 2 AMI
+- Assign the IAM role created above
+- Configure security group to allow SSH access
+
+### 3. Install CloudWatch Agent
+- SSH into the EC2 instance
+- Install agent with:
+  ```bash
+  sudo yum update -y
+  sudo yum install amazon-cloudwatch-agent -y
+Configure and start the agent with your JSON configuration
+
+4. Configure CloudWatch Alarms & Dashboards
+Create alarms on metrics like CPUUtilization
+
+Set up dashboards for monitoring
+
+Usage
+Connect to EC2 via SSH for agent management
+
+Monitor metrics and alarms in AWS CloudWatch Console
+
+Use dashboards for visual insights
+
+Troubleshooting
+Ensure IAM role is attached correctly to EC2
+
+Check agent status:
+
+bash
+Copy
+Edit
+sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -m ec2 -a status
+Review logs at /opt/aws/amazon-cloudwatch-agent/logs/
+
+About Me
+Charles — Aspiring Cloud Engineer focused on mastering AWS monitoring and automation.
+
+License
+MIT © Charles
+
+
+
+

@@ -1,0 +1,21 @@
+{
+  "AlarmName": "HighCPUUtilization",
+  "AlarmDescription": "Alarm when CPU exceeds 80%",
+  "ActionsEnabled": true,
+  "MetricName": "CPUUtilization",
+  "Namespace": "AWS/EC2",
+  "Statistic": "Average",
+  "Period": 300,
+  "EvaluationPeriods": 1,
+  "Threshold": 80,
+  "ComparisonOperator": "GreaterThanThreshold",
+  "Dimensions": [
+    {
+      "Name": "InstanceId",
+      "Value": "i-0123456789abcdef0"
+    }
+  ],
+  "AlarmActions": [
+    "arn:aws:sns:us-east-1:123456789012:NotifyMe"
+  ]
+}

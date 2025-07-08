@@ -1,0 +1,6 @@
+aws-ec2-s3-cloudwatch-infra/
+  configs/
+    cloudwatch-alarm-highcpu.json
+    s3-bucket-policy.json
+    ec2-userdata.sh       # shell script used as EC2 user data
+    iam-policy.json

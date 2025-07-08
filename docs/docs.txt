@@ -1,0 +1,9 @@
+docs/
+  architecture.md
+  setup.md
+  usage.md
+  troubleshooting.md
+  changelog.md
+  diagrams/
+    aws-infra-arch.drawio
+    cloudwatch-flow.png

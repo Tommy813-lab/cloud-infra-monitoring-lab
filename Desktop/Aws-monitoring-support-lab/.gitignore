@@ -1,0 +1,5 @@
+﻿# Ignore common files
+*.log
+*.tmp
+*.env
+terraform/.terraform/

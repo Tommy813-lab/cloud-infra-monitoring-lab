@@ -1,0 +1,4 @@
+# cloudwatch/logs/sample-ec2-app.log
+[2025-07-08 06:00:01] INFO: EC2 instance started successfully
+[2025-07-08 06:01:23] ERROR: Application crashed due to out of memory
+[2025-07-08 06:05:45] INFO: Restarted application service

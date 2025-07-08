@@ -1,0 +1,11 @@
+#!/bin/bash
+# Update OS and install Apache web server
+yum update -y
+yum install -y httpd
+
+# Start Apache and enable on boot
+systemctl start httpd
+systemctl enable httpd
+
+# Create a simple homepage
+echo "<h1>Welcome to EC2 instance $(hostname)</h1>" > /var/www/html/index.html
