@@ -1,6 +1,6 @@
 {
-  "AlarmName": "HighCPUUtilization",
-  "AlarmDescription": "Alarm when CPU exceeds 80%",
+  "AlarmName": "HighCPUUtilization_EC2GIT",
+  "AlarmDescription": "Alarm for EC2GIT (i-01a5e58f7ad1ed8ec) when CPU exceeds 80%",
   "ActionsEnabled": true,
   "MetricName": "CPUUtilization",
   "Namespace": "AWS/EC2",
@@ -12,10 +12,30 @@
   "Dimensions": [
     {
       "Name": "InstanceId",
-      "Value": "i-0123456789abcdef0"
+      "Value": "i-01a5e58f7ad1ed8ec"
     }
   ],
   "AlarmActions": [
     "arn:aws:sns:us-east-1:123456789012:NotifyMe"
-  ]
+  ],
+  "EC2InstanceMetadata": {
+    "Name": "EC2GIT",
+    "InstanceID": "i-01a5e58f7ad1ed8ec",
+    "InstanceState": "stopped",
+    "InstanceType": "t2.micro",
+    "StatusCheck": "N/A",
+    "AlarmStatus": "Inactive",
+    "AvailabilityZone": "us-east-1a",
+    "PublicIPv4DNS": null,
+    "PublicIPv4Address": null,
+    "ElasticIP": null,
+    "IPv6IPs": [],
+    "Monitoring": "basic",
+    "SecurityGroupName": "launch-wizard-1",
+    "KeyName": "ec2-keypair-tommy",
+    "LaunchTime": "2025-06-25T14:20:00Z",
+    "PlatformDetails": "Linux/UNIX",
+    "Managed": "self-managed",
+    "Operator": "Charles Bucher"
+  }
 }
