@@ -1,128 +1,109 @@
 ☁️ AWS EC2, S3 & CloudWatch Monitoring Lab
-Cloud Infrastructure Lab | EC2 provisioning, CloudWatch monitoring, S3 integration, and alerting — built for real-world, remote-ready reliability.
+By Charles — Aspiring Cloud Engineer
 
-🔧 Project Overview
-This project simulates a production-ready AWS environment with:
+🧠 Scenario: Real-World AWS Monitoring for Cloud Support
+Imagine you’re a Cloud Support Engineer on-call for a critical production system. Your job? Make sure the EC2 instances run smoothly, logs are collected properly, and if CPU spikes or other issues happen, you get notified immediately so you can act fast.
 
-✅ EC2 provisioning
+This lab simulates exactly that: provisioning EC2 with CloudWatch monitoring, storing logs on S3, setting up alarms with SNS email alerts — everything automated to reflect enterprise-grade AWS environments.
 
-✅ S3 bucket integration
-
-✅ CloudWatch monitoring & custom alarms
-
-✅ Email notifications via SNS
-
-✅ Log collection & dashboarding
-
-✅ Bash scripts for automation
-
-It reflects core tasks a Cloud Support Engineer or Junior Cloud Engineer would handle in a live AWS environment.
-
-🧠 Why This Project Matters
-I created this lab to demonstrate real, hands-on skills in AWS infrastructure monitoring — from setup to automation. It's structured to mimic cloud support scenarios seen at enterprise scale.
-
-📐 Architecture
-pgsql
+📐 Architecture Diagram
+mermaid
 Copy code
-+-----------------+         +-------------------+
-|  EC2 Instance   | <-----> | CloudWatch Agent  |
-|  (Amazon Linux) |         +-------------------+
-|  High CPU Load  |               |
-+--------+--------+               v
-         |                +-------------------+
-         |                | CloudWatch Alarms |
-         |                +-------------------+
-         |                        |
-         v                        v
-+----------------+       +-------------------+
-| S3 Bucket       | <----| CloudWatch Logs   |
-| for data/assets |       +-------------------+
-+----------------+                |
-                                  v
-                         +-------------------+
-                         |   SNS Topic       |
-                         | Email Notification|
-                         +-------------------+
-🚀 Features
-Feature	Description
-🔧 EC2 Setup	Provisioned instance w/ CloudWatch agent
-📦 S3 Bucket	Used for logs or asset storage
-📈 CloudWatch Metrics	CPU utilization, memory, etc.
-🔔 Alarms & Notifications	Triggers email when thresholds are hit
-📝 Logs	Monitored and exported for analysis
-📊 Dashboard Ready	Custom metrics and visualizations
-💻 Bash Scripting	Infrastructure scripts to automate setup
+flowchart TD
+    EC2[EC2 Instance<br>(Amazon Linux 2)] --> CloudWatchAgent[CloudWatch Agent]
+    CloudWatchAgent -->|Metrics & Logs| CloudWatchLogs[CloudWatch Logs]
+    CloudWatchLogs --> S3[S3 Bucket<br>(Log Storage)]
+    CloudWatchAgent --> CloudWatchAlarms[CloudWatch Alarms]
+    CloudWatchAlarms --> SNS[SNS Topic<br>(Email Notifications)]
+🔧 Project Overview
+This project covers:
 
-📂 File Structure
-graphql
+✅ EC2 instance provisioning with CloudWatch agent installed
+
+✅ S3 bucket for storing logs and assets
+
+✅ CloudWatch monitoring with CPU, memory metrics, custom alarms
+
+✅ Automated email notifications via SNS
+
+✅ Bash scripts for easy setup and teardown
+
+✅ Ready-made dashboards and logs for monitoring and auditing
+
+📁 File Structure
+python
 Copy code
 aws-ec2-s3-cloudwatch-infra/
-├── alarms/                  # JSON config for CloudWatch alarms
-├── logs/                    # Example CloudWatch logs
-├── scripts/                 # Bash automation scripts
-├── cloudwatch/              # Agent configs, metrics
-├── docs/                    # Architecture diagrams, notes
-├── lambda/                  # Placeholder for future automation
-├── README.md                # You're reading it
-🧪 How to Use
+├── alarms/          # JSON alarm configs for CloudWatch
+├── cloudwatch/      # Agent configs & custom metrics
+├── docs/            # Diagrams, notes
+├── lambda/          # Future automation placeholders
+├── logs/            # Sample log files
+├── scripts/         # Bash setup/teardown automation
+└── README.md        # This file
+🚀 How to Use
 Clone the repo
 
 bash
 Copy code
 git clone https://github.com/Tommy813-lab/aws-ec2-s3-cloudwatch-infra.git
 cd aws-ec2-s3-cloudwatch-infra
-Launch EC2 Instance
-
-Install & Configure CloudWatch Agent
+Launch and configure EC2
 
 bash
 Copy code
 ./scripts/install-cloudwatch-agent.sh
-Deploy Alarms
+Deploy alarms
 
 bash
 Copy code
 aws cloudwatch put-metric-alarm --cli-input-json file://alarms/ec2-highcpu-alarm.json
-Test & Monitor in CloudWatch Console
+Monitor logs & alarms
 
-🧰 Tech Stack
-AWS EC2, S3, CloudWatch, IAM, SNS
+Use CloudWatch console dashboards
 
-Amazon Linux 2
+Receive email alerts when thresholds exceed
 
-Bash
+🧰 Technologies Used
+AWS EC2 (Amazon Linux 2)
 
-AWS CLI
+AWS S3 (Log Storage)
 
-JSON (for alarm configs)
+AWS CloudWatch (Metrics, Logs, Alarms)
 
-📬 Email Alerts
-✅ When CPU usage exceeds the threshold, you'll receive an SNS-triggered email alert to your configured address. Just like you would in production.
+AWS SNS (Email Alerts)
+
+Bash scripting
+
+AWS CLI & JSON configs
+
+📬 Alerts That Matter
+You’ll get a real email notification anytime your EC2 instance’s CPU usage spikes beyond the threshold — mimicking production alerting scenarios.
 
 🎯 Who This Is For
-This project is designed for:
-
 Aspiring Cloud Engineers
 
-Cloud Support roles
+Cloud Support & Operations roles
 
-Ops/Infra students
+Infrastructure students prepping for AWS certifications
 
-Anyone prepping for AWS interviews or certifications
+Anyone wanting real-world AWS monitoring practice
 
 🧠 Lessons Learned
-IAM permissions for agents and alarms must be scoped correctly.
+IAM permissions must be locked down but functional
 
-Monitoring is critical for reliability — especially under unpredictable CPU spikes.
+Monitoring and alerting are critical to uptime and troubleshooting
 
-Infrastructure as Code (IAC) is next — Terraform version coming soon.
+Automating monitoring setup reduces human error
+
+Infrastructure-as-Code (Terraform) is next on my roadmap
 
 🔗 Related Projects
-aws-s3-cloudfront-static-site: Zero-server static web hosting
+aws-s3-cloudfront-static-site: Static website hosting with global delivery
 
-aws-terraform-monitoring: Coming soon!
+aws-terraform-monitoring: Terraform-based monitoring coming soon!
 
-📎 Author
+📎 About Me
 Charles (Tommy) Bucher
-Aspiring Cloud Engineer | AWS Certified | Linux & Infra Enthusiast
+Aspiring Cloud Engineer | AWS Certified | Linux & Infrastructure Enthusiast
 GitHub: @Tommy813-lab
