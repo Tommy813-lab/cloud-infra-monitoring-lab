@@ -1,152 +1,126 @@
-🔧 Cloud Infrastructure Monitoring Lab
+🧠 cloud-infra-monitoring-lab
+A hands-on, production-style AWS monitoring lab for Cloud Support Engineers and aspiring Infra Pros. This project simulates real-world monitoring of a web app running on EC2, complete with metrics, custom dashboards, CloudWatch alarms, and SNS notifications. Built to help you sharpen your cloud troubleshooting instincts and respond to incidents before they become outages.
 
-A hands-on AWS lab that brings together EC2, CloudWatch, CloudWatch Agent, SNS, and custom alarms to build real-world monitoring systems for cloud engineers.
+📌 Scenario
+You’re a Cloud Support Engineer at a mid-size e-commerce company.
+Your team just launched a marketing campaign that’s driving unexpected traffic to the web app. You’ve been tasked with setting up a proactive monitoring system to:
 
+Track EC2 health, CPU usage, memory, and disk
 
+Alert on high CPU before user complaints start
 
-🔥 Scenario: Charles' Infrastructure Health Dashboard
+Notify the on-call engineer via SNS if anything’s fishy
 
-Charles is supporting a growing cloud application and needs to proactively detect performance issues and outages across EC2 instances. This lab demonstrates how to:
+Build dashboards so leadership can brag about “uptime metrics”
 
-Collect in-depth EC2 system metrics
+This repo is your response. 🚨
 
-Trigger alarms on CPU, memory, and disk thresholds
+🧰 What’s Inside
+Feature	Description
+EC2 Monitoring Setup	Launch & configure EC2 instance with Apache and CloudWatch Agent
+CloudWatch Agent Config	Pulls CPU, memory, disk, and more (not just the basics!)
+CloudWatch Alarms	Custom alarms for high CPU usage (80%+)
+SNS Notifications	Sends alerts to email/SMS when alarms are triggered
+Dashboards	Visuals for EC2 metrics — ready for NOC/management
 
-Push alerts to email or SMS via SNS
+🧱 Architecture
+pgsql
+Copy
+Edit
++---------------------+            +-----------------------+
+|  User Traffic       |  ───────▶  |  EC2 Web Server       |
+|  (Website Access)   |            |  (Apache + CW Agent)  |
++---------------------+            +-----------------------+
+                                            │
+                                            ▼
+                            +-------------------------------+
+                            | Amazon CloudWatch             |
+                            | - Metrics (CPU, Memory, Disk) |
+                            | - Alarms                      |
+                            +-------------------------------+
+                                            │
+                                            ▼
+                            +-------------------------------+
+                            | Amazon SNS                    |
+                            | - Email/SMS Alert to On-call  |
+                            +-------------------------------+
+🚀 How to Deploy
+1. 🔧 Launch EC2 and SSH In
+bash
+Copy
+Edit
+aws ec2 run-instances \
+  --image-id ami-0abcdef1234567890 \
+  --instance-type t2.micro \
+  --key-name my-key \
+  --security-groups my-sg
+SSH into it:
 
-Create custom CloudWatch dashboards
+bash
+Copy
+Edit
+ssh ec2-user@<your-ec2-public-ip>
+2. 🧪 Install Apache + CloudWatch Agent
+bash
+Copy
+Edit
+sudo yum update -y
+sudo yum install -y httpd amazon-cloudwatch-agent
+sudo systemctl start httpd
+sudo systemctl enable httpd
+3. 📈 Configure CloudWatch Agent
+Use the provided cloudwatch-agent-config.json:
 
-Respond fast when things go sideways
+bash
+Copy
+Edit
+sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl \
+  -a fetch-config -m ec2 -c file:cloudwatch-agent-config.json -s
+4. 🔔 Create Alarms + SNS
+Example CPU Alarm:
 
-This is production-style monitoring—no training wheels.
+bash
+Copy
+Edit
+aws cloudwatch put-metric-alarm \
+  --alarm-name HighCPUUtilization \
+  --metric-name CPUUtilization \
+  --namespace AWS/EC2 \
+  --statistic Average \
+  --period 300 \
+  --threshold 80 \
+  --comparison-operator GreaterThanThreshold \
+  --dimensions Name=InstanceId,Value=<your-instance-id> \
+  --evaluation-periods 1 \
+  --alarm-actions arn:aws:sns:us-east-1:123456789012:MyTopic
+✅ Success Criteria
+✅ Alerts when CPU exceeds 80%
 
-⚙️ Architecture Overview
+✅ You receive an email or SMS within seconds
 
-🔹 Key Services:
+✅ Dashboards show real-time metrics
 
-Service
+✅ You feel like a CloudWatch ninja 🥷
 
-Purpose
+📚 Skills Demonstrated
+EC2 provisioning & Linux troubleshooting
 
-EC2
+Installing and configuring CloudWatch Agent
 
-Host running monitored workloads
+Creating custom CloudWatch alarms
 
-CloudWatch
+SNS setup for email/mobile notifications
 
-Metrics, logs, dashboards, alarms
+Building visual monitoring dashboards
 
-CloudWatch Agent
+💡 Real-World Use Cases
+Preventive alerting during scaling events
 
-Pushes custom metrics (CPU, memory, disk)
+Monitoring memory leaks or CPU hogs
 
-SNS
+Teaching junior SREs or support engineers
 
-Notification pipeline
+Interview-ready project to prove you're cloud-ready
 
-IAM
-
-Roles and permissions
-
-📊 Diagram
-
-+---------------------+
-|     Admin/User      |
-+----------+----------+
-           |
-           v
-+----------+----------+
-|   CloudWatch        |
-| + Dashboards        |
-| + Alarms            |
-+----------+----------+
-           ^
-           |
-+----------+----------+
-|   SNS Topic         |
-|  (Email/SMS Alerts) |
-+----------+----------+
-           ^
-           |
-+----------+----------+
-| CloudWatch Agent    |
-| (On EC2 Instance)   |
-+----------+----------+
-           ^
-           |
-+----------+----------+
-|       EC2 Instance  |
-+---------------------+
-
-🚀 What You'll Set Up
-
-EC2 Instance (Amazon Linux 2) with CloudWatch Agent
-
-IAM Role with permissions to publish metrics
-
-Install & Configure CloudWatch Agent for CPU, Memory, Disk
-
-CloudWatch Alarms with SNS notifications
-
-Email or SMS Alerts via Amazon SNS
-
-Dashboards to visualize instance health in real time
-
-📁 Repo Structure
-
-.
-├── ec2-setup.sh              # Script to install and start CloudWatch agent
-├── agent-config.json         # CloudWatch Agent config
-├── alarm-templates.json      # Example CloudWatch alarm JSON
-├── sns-setup.sh              # SNS topic + subscription script
-├── dashboard.json            # Example CloudWatch dashboard
-├── README.md
-└── cloud-monitoring-architecture.png
-
-🔐 Security Tips
-
-Use least-privilege IAM roles
-
-Restrict SNS topics to approved accounts
-
-Enable logging for all SNS deliveries
-
-Protect dashboard access via IAM policies
-
-📉 Cost Breakdown (Low Usage)
-
-Service
-
-Estimated Monthly Cost
-
-EC2 (t2.micro)
-
-~$8
-
-CloudWatch Metrics
-
-Free tier + $0.30/month
-
-SNS Notifications
-
-~$0.50 (1K messages)
-
-🧠 Why This Lab Rocks
-
-Real-world setup used in production
-
-Great for monitoring apps, APIs, or EC2 fleets
-
-Reusable templates and scripts
-
-Perfect portfolio project for interviews
-
-🧑‍💻 About Charles
-
-Charles is a cloud support engineer in training building hands-on AWS labs that go beyond tutorials. This project showcases operational awareness, automation, and monitoring discipline in modern cloud environments.
-
-📊 Related Projects
-
-s3-cloudfront-secure-static-site — Secure static site with HTTPS and CDN
-
-aws-ec2-s3-cloudwatch-infra — General EC2 + S3 Infra Lab
+🔥 About Me
+👨‍💻 Charles – Aspiring Cloud Engineer
