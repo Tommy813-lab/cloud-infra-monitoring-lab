@@ -1,4 +1,8 @@
-# cloudwatch/logs/sample-ec2-app.log
-[2025-07-08 06:00:01] INFO: EC2 instance started successfully
-[2025-07-08 06:01:23] ERROR: Application crashed due to out of memory
-[2025-07-08 06:05:45] INFO: Restarted application service
+# cloudwatch/logs/ec2git-app.log
+[2025-07-10 04:48:12] INFO: EC2GIT instance booted up in us-east-2a
+[2025-07-10 04:49:05] INFO: Attached IAM role EC2-CloudWatch-Role successfully
+[2025-07-10 04:50:17] WARN: Memory usage high (78%) on t2.micro
+[2025-07-10 04:51:30] ERROR: Application service crashed - out of memory
+[2025-07-10 04:52:01] INFO: Auto-recovery triggered, restarting application
+[2025-07-10 04:53:45] INFO: Application service running again successfully
+[2025-07-10 04:55:10] INFO: Monitoring enabled: detailed CloudWatch metrics active
