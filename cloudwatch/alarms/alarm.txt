@@ -1,20 +1,20 @@
 {
-  "InstanceID": "i-01a5e58f7ad1ed8ec",
+  "InstanceID": "i-0abc123def456ghi7",
   "Name": "EC2GIT",
   "State": "running",
   "InstanceType": "t2.micro",
   "OSPlatform": "Linux/UNIX",
   "AMI": {
-    "ID": "ami-054d057aaa6f1aa39",
-    "Name": "amzn2-ami-hvm-2.0.20250623.0-x86_64-gp2"
+    "ID": "ami-0abc123def456ghi7",
+    "Name": "Amazon Linux 2 AMI x86_64"
   },
   "Network": {
     "PrivateIP": "172.31.11.119",
     "PublicIP": "18.225.175.220",
     "PublicDNS": "ec2-18-225-175-220.us-east-2.compute.amazonaws.com",
     "AvailabilityZone": "us-east-2a",
-    "VPC_ID": "vpc-0797b53cea504364c",
-    "SubnetID": "subnet-057080ec6c5a43eaa"
+    "VPC_ID": "vpc-0abc123def456ghi7",
+    "SubnetID": "subnet-0abc123def456ghi7"
   },
   "Security": {
     "KeyPair": "my-key",
@@ -26,7 +26,7 @@
     "Type": "detailed"
   },
   "Launch": {
-    "Time": "2025-07-10T04:47:06-04:00",
+    "Time": "2025-07-10T04:47:06",
     "AutoRecovery": true,
     "TerminationProtection": false,
     "Lifecycle": "normal",
@@ -38,5 +38,6 @@
   "Resources": {
     "CPU": 1
   },
-  "InstanceARN": "arn:aws:ec2:us-east-2:965638720293:instance/i-01a5e58f7ad1ed8ec"
+  "InstanceARN": "arn:aws:ec2:us-east-2:123456789012:instance/i-0abc123def456ghi7"
 }
+

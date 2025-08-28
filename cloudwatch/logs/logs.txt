@@ -1,8 +1,8 @@
 # cloudwatch/logs/ec2git-app.log
-[2025-07-10 04:48:12] INFO: EC2GIT instance booted up in us-east-2a
-[2025-07-10 04:49:05] INFO: Attached IAM role EC2-CloudWatch-Role successfully
-[2025-07-10 04:50:17] WARN: Memory usage high (78%) on t2.micro
-[2025-07-10 04:51:30] ERROR: Application service crashed - out of memory
-[2025-07-10 04:52:01] INFO: Auto-recovery triggered, restarting application
-[2025-07-10 04:53:45] INFO: Application service running again successfully
-[2025-07-10 04:55:10] INFO: Monitoring enabled: detailed CloudWatch metrics active
+[2025-07-10 04:48:12] INFO: EC2GIT instance initialized in us-east-2a
+[2025-07-10 04:49:05] INFO: IAM role 'EC2-CloudWatch-Role' attached successfully
+[2025-07-10 04:50:17] WARNING: Memory usage approaching threshold (78%) on t2.micro
+[2025-07-10 04:51:30] ERROR: Application service stopped unexpectedly - Out of Memory
+[2025-07-10 04:52:01] INFO: Auto-recovery triggered; attempting restart of application
+[2025-07-10 04:53:45] INFO: Application service restarted successfully
+[2025-07-10 04:55:10] INFO: Detailed CloudWatch monitoring active
