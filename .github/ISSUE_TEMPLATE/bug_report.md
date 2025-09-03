@@ -1,6 +1,6 @@
 ﻿---
 name: Bug Report
-about: Report a problem with the cloud infrastructure scripts or monitoring
+about: Report a problem with the web app or S3 backend
 title: "[BUG] "
 labels: bug
 assignees: 
@@ -8,25 +8,24 @@ assignees:
 ---
 
 **Describe the bug**
-A clear and concise description of what the bug is.
+A clear and concise description of the bug.
 
 **To Reproduce**
-Steps to reproduce the behavior:
+Steps to reproduce:
 1. Go to '...'
 2. Run '...'
 3. See error
 
 **Expected behavior**
-A clear description of what you expected to happen.
+Describe what you expected to happen.
 
 **Screenshots / Logs**
-If applicable, add screenshots or logs to help explain your problem.
+Include screenshots or logs if relevant.
 
 **Environment**
-- AWS region:
 - OS:
-- AWS CLI version:
-- Any other relevant info
+- Browser / Tools:
+- Other relevant info
 
 **Additional context**
-Add any other context about the problem here.
+Add any other context here.

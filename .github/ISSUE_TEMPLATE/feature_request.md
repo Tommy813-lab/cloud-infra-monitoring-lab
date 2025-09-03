@@ -1,20 +1,17 @@
 ﻿---
 name: Feature Request
-about: Suggest an improvement or new feature for the cloud infrastructure
+about: Suggest improvements or new features for the web app
 title: "[FEATURE] "
 labels: enhancement
 assignees: 
 
 ---
 
-**Is your feature request related to a problem? Please describe.**
-A clear and concise description of the problem.
+**Describe the feature**
+Describe the new feature or improvement you want.
 
-**Describe the solution you'd like**
-A clear and concise description of what you want to happen.
-
-**Describe alternatives you've considered**
-A clear description of any alternative solutions or features you've considered.
+**Describe alternatives**
+Any alternatives or related solutions you’ve considered.
 
 **Additional context**
-Add any other context or screenshots about the feature request here.
+Add context or screenshots here.

@@ -1,6 +1,6 @@
 ﻿---
 name: Question
-about: Ask a question about the cloud infrastructure or scripts
+about: Ask a question about the web app or S3 backend
 title: "[QUESTION] "
 labels: question
 assignees: 
@@ -8,10 +8,10 @@ assignees:
 ---
 
 **Your question**
-Please describe your question clearly.
+Describe your question clearly.
 
 **Context**
-Provide any relevant details or context.
+Provide context or details.
 
 **Additional notes**
-Any other information that may help answer your question.
+Any other information to help answer your question.
