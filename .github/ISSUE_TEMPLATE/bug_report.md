@@ -1,6 +1,6 @@
 ﻿---
 name: Bug Report
-about: Report a problem with the web app or S3 backend
+about: Report a problem with the monitoring scripts or CloudWatch/SNS setup
 title: "[BUG] "
 labels: bug
 assignees: 
@@ -19,12 +19,13 @@ Steps to reproduce:
 **Expected behavior**
 Describe what you expected to happen.
 
-**Screenshots / Logs**
-Include screenshots or logs if relevant.
+**Logs / Screenshots**
+Attach logs or screenshots if relevant.
 
 **Environment**
+- AWS region:
 - OS:
-- Browser / Tools:
+- Scripts version:
 - Other relevant info
 
 **Additional context**

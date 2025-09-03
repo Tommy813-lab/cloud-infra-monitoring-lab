@@ -1,6 +1,6 @@
 ﻿---
 name: Question
-about: Ask a question about the web app or S3 backend
+about: Ask a question about the CloudWatch/SNS monitoring scripts
 title: "[QUESTION] "
 labels: question
 assignees: 
@@ -11,7 +11,7 @@ assignees:
 Describe your question clearly.
 
 **Context**
-Provide context or details.
+Provide any relevant details.
 
 **Additional notes**
-Any other information to help answer your question.
+Add any other info here.

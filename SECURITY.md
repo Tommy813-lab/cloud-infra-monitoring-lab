@@ -5,7 +5,7 @@ Please report security vulnerabilities directly to: security@tommy813-lab.github
 Do not open issues in GitHub for security reports.
 
 ## Supported Versions
-- This project supports the latest release of AWS CLI scripts and monitoring scripts.
+- This project supports the latest release of CloudWatch/SNS monitoring scripts.
 - Older scripts may not receive security updates.
 
 ## Guidelines

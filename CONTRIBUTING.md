@@ -1,4 +1,4 @@
-﻿# Contributing to EC2 Web App with S3 Backend
+﻿# Contributing to Proactive Monitoring with CloudWatch & SNS
 
 Thank you for contributing! Here’s how to get started:
 
@@ -14,7 +14,7 @@ Thank you for contributing! Here’s how to get started:
 - Keep commit messages clear and concise.
 - Follow the existing code style.
 - Document any new scripts or AWS resources in the README.
-- For infrastructure changes, follow existing EC2/S3 patterns.
+- For infrastructure changes, follow existing CloudWatch/SNS patterns.
 
 ## Code of Conduct
 By contributing, you agree to follow the [Code of Conduct](CODE_OF_CONDUCT.md).

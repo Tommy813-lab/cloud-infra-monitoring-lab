@@ -1,6 +1,6 @@
 ﻿---
 name: Feature Request
-about: Suggest improvements or new features for the web app
+about: Suggest improvements or new features for monitoring scripts
 title: "[FEATURE] "
 labels: enhancement
 assignees: 
@@ -8,10 +8,10 @@ assignees:
 ---
 
 **Describe the feature**
-Describe the new feature or improvement you want.
+Describe the new feature or improvement.
 
 **Describe alternatives**
-Any alternatives or related solutions you’ve considered.
+Any alternative solutions considered.
 
 **Additional context**
-Add context or screenshots here.
+Add context here.
