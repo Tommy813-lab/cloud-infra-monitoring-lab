@@ -1,142 +1,118 @@
-🧠 Cloud Infra Monitoring Lab
+Cloud Infrastructure Monitoring Lab
+📖 Overview
 
-Hands-on AWS monitoring lab for Cloud Support Engineers and aspiring Infrastructure Pros.
-Simulate real-world monitoring of a web app running on EC2, with custom metrics, dashboards, CloudWatch alarms, and SNS notifications. Sharpen your troubleshooting instincts and catch incidents before they become outages.
+This lab simulates a real-world monitoring scenario in AWS:
 
-📌 Scenario
+An EC2 instance simulates a production workload under variable traffic.
 
-You are a Cloud Support Engineer at a mid-size e-commerce company. A marketing campaign is driving sudden traffic spikes. Your task:
+Terraform and Bash scripts automate provisioning and configuration.
 
-Monitor EC2 health: CPU, memory, disk usage.
+CloudWatch Agent collects system metrics (CPU, memory, disk, network).
 
-Alert on high CPU before users complain.
+Alarms are configured for high CPU utilization.
 
-Notify the on-call engineer via SNS.
+SNS topics send real-time alerts to subscribers (e.g., email/SMS).
 
-Build dashboards for leadership to showcase uptime metrics.
+CloudWatch dashboards visualize system health for operations teams.
 
-Your mission: Proactive monitoring with real-world AWS tooling. 🚀
+The goal: showcase how to design, deploy, and monitor a resilient cloud workload with alerting pipelines that can scale.
 
-🧰 Features & Tools
-Feature	Description
-EC2 Monitoring Setup	Launch EC2 instance with Apache and CloudWatch Agent
-CloudWatch Agent Config	Tracks CPU, memory, disk, and more (beyond default metrics)
-CloudWatch Alarms	Trigger alerts on high CPU usage (>80%)
-SNS Notifications	Email/SMS alerts for on-call engineers
-Dashboards	Real-time visuals of EC2 metrics for NOC/management
-🧱 Architecture Diagram
-         +-------------------+
-         |   User Traffic    |
-         | (Website Access)  |
-         +---------+---------+
-                   |
-                   ▼
-         +-------------------+
-         |  EC2 Web Server   |
-         | (Apache + CW Agent)|
-         +---------+---------+
-                   |
-                   ▼
-         +-------------------+
-         |   Amazon CloudWatch|
-         | - Metrics         |
-         | - Alarms          |
-         +---------+---------+
-                   |
-                   ▼
-         +-------------------+
-         |       SNS         |
-         | - Email/SMS Alert |
-         +-------------------+
+🎯 Scenario
+
+Imagine a startup running a lightweight API service on a single EC2 instance. During traffic spikes:
+
+CPU usage can shoot past safe thresholds.
+
+Without monitoring, the service would degrade unnoticed.
+
+With this lab, alerts fire instantly, dashboards highlight the bottleneck, and operators can react before customers are impacted.
+
+This repo demonstrates the first building block of Site Reliability Engineering (SRE).
+
+🏗️ Architecture
+flowchart TD
+    A[Developer Git Commit] --> B[Terraform Apply via Script]
+    B --> C[EC2 Instance Provisioned]
+    C --> D[CloudWatch Agent Installed]
+    D --> E[CloudWatch Metrics Collected]
+    E --> F[CloudWatch Dashboards]
+    E --> G[CloudWatch Alarms]
+    G --> H[SNS Topic]
+    H --> I[Email/SMS Alert to Operator]
+
+⚙️ Tech Stack
+
+AWS EC2 – Compute resource simulating workload
+
+Terraform – Infrastructure provisioning as code
+
+Bash – Deployment scripting & triggers
+
+CloudWatch Agent – System metrics collector
+
+CloudWatch Dashboards – Visual monitoring panels
+
+CloudWatch Alarms – Event detection & alerting
+
+SNS – Alert delivery pipeline
+
+📂 Repository Structure
+cloud-infra-monitoring-lab/
+├── terraform/                # Infrastructure code (EC2, IAM, CloudWatch, SNS)
+│   ├── main.tf
+│   ├── variables.tf
+│   └── outputs.tf
+├── scripts/                  # Deployment & setup scripts
+│   ├── deploy.sh
+│   └── teardown.sh
+├── agent/                    # CloudWatch Agent config
+│   └── cloudwatch-config.json
+├── dashboards/               # JSON definitions for dashboards
+│   └── ec2-dashboard.json
+└── README.md                 # Project documentation
+
+🚀 Deployment Workflow
+
+Clone repo to local machine.
+
+Run Terraform script to provision EC2, IAM roles, CloudWatch alarms, SNS.
+
+Bootstrap CloudWatch Agent via deploy.sh.
+
+Generate traffic load (Apache Bench / stress tool).
+
+Observe:
+
+Dashboard updates in real-time.
+
+Alarm triggers when CPU > threshold.
+
+SNS sends notification to your inbox/phone.
+
+📊 Example Dashboard
+graph LR
+    A[CPU Utilization] -->|Alarm Threshold| B[Alarm Trigger]
+    A --> C[CloudWatch Dashboard]
+    D[Memory Usage] --> C
+    E[Disk I/O] --> C
+    F[Network Traffic] --> C
 
 
-Logic Flow:
-
-Users generate traffic → EC2 processes requests.
-
-CloudWatch Agent collects metrics in real-time.
-
-CloudWatch evaluates thresholds → triggers alarms.
-
-SNS sends alerts → on-call engineer receives notification.
-
-Dashboards visualize system health.
-
-🚀 Deployment Steps
-1️⃣ Launch EC2 & SSH
-aws ec2 run-instances \
-  --image-id ami-0abcdef1234567890 \
-  --instance-type t2.micro \
-  --key-name my-key \
-  --security-groups my-sg
-
-ssh ec2-user@<EC2_PUBLIC_IP>
-
-2️⃣ Install Apache & CloudWatch Agent
-sudo yum update -y
-sudo yum install -y httpd amazon-cloudwatch-agent
-sudo systemctl start httpd
-sudo systemctl enable httpd
-
-3️⃣ Configure CloudWatch Agent
-sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl \
-  -a fetch-config -m ec2 -c file:cloudwatch-agent-config.json -s
-
-4️⃣ Create CloudWatch Alarms & SNS Notifications
-
-Example: High CPU Alarm
-
-aws cloudwatch put-metric-alarm \
-  --alarm-name HighCPUUtilization \
-  --metric-name CPUUtilization \
-  --namespace AWS/EC2 \
-  --statistic Average \
-  --period 300 \
-  --threshold 80 \
-  --comparison-operator GreaterThanThreshold \
-  --dimensions Name=InstanceId,Value=<INSTANCE_ID> \
-  --evaluation-periods 1 \
-  --alarm-actions arn:aws:sns:us-east-1:123456789012:MyTopic
+Dashboards track CPU, Memory, Disk, and Network metrics side-by-side for fast diagnosis.
 
 ✅ Success Criteria
 
-Alerts trigger when CPU > 80%.
+ EC2 instance provisioned via Terraform.
 
-Email/SMS notifications received immediately.
+ CloudWatch Agent streams system metrics.
 
-Dashboards update in near real-time.
+ Dashboards show live performance graphs.
 
-You feel like a CloudWatch ninja 🥷.
+ Alarm fires when CPU > threshold.
 
-📚 Skills Demonstrated
+ Operator receives SNS notification.
 
-EC2 provisioning & Linux troubleshooting
 
-Installing & configuring CloudWatch Agent
+Configure monitoring in a way that actually supports operations.
 
-Creating custom CloudWatch alarms
-
-Setting up SNS notifications
-
-Building visual dashboards
-
-💡 Real-World Use Cases
-
-Preventive alerting during traffic spikes or scaling events
-
-Detecting memory leaks or CPU hogs before outages
-
-Training junior SREs/support engineers
-
-Interview-ready proof of cloud proficiency
-
-🔥 About Me
-
-Charles – Aspiring Cloud Engineer
-Hands-on experience automating EC2 provisioning and monitoring using Infrastructure-as-Code and scripting. Demonstrates proficiency in:
-
-Automated EC2 provisioning from Git commits using Bash scripts
-
-Real-time performance monitoring with CloudWatch
-
-Building alerting & notification systems with SNS
+Design an end-to-end alerting pipeline that any SRE/Cloud team would want.
