@@ -1,33 +1,31 @@
-Cloud Infrastructure Monitoring Lab
+🌐 Cloud Infrastructure Monitoring Lab
 📖 Overview
 
-This lab simulates a real-world monitoring scenario in AWS:
+This project demonstrates how to design, deploy, and monitor AWS infrastructure with automation, observability, and alerting pipelines.
 
-An EC2 instance simulates a production workload under variable traffic.
+The lab provisions an EC2 instance that simulates a production workload, collects system metrics with the CloudWatch Agent, visualizes performance through dashboards, and triggers alarms that notify operators in real time via SNS.
 
-Terraform and Bash scripts automate provisioning and configuration.
-
-CloudWatch Agent collects system metrics (CPU, memory, disk, network).
-
-Alarms are configured for high CPU utilization.
-
-SNS topics send real-time alerts to subscribers (e.g., email/SMS).
-
-CloudWatch dashboards visualize system health for operations teams.
-
-The goal: showcase how to design, deploy, and monitor a resilient cloud workload with alerting pipelines that can scale.
+It’s a practical example of how to move from just running cloud resources → to actively managing and monitoring them like an SRE or Cloud Engineer would.
 
 🎯 Scenario
 
-Imagine a startup running a lightweight API service on a single EC2 instance. During traffic spikes:
+A small startup runs a lightweight API service on EC2. During traffic spikes:
 
-CPU usage can shoot past safe thresholds.
+CPU and memory usage climb past safe thresholds.
 
-Without monitoring, the service would degrade unnoticed.
+Without monitoring, service degradation goes unnoticed until customers complain.
 
-With this lab, alerts fire instantly, dashboards highlight the bottleneck, and operators can react before customers are impacted.
+With this setup:
 
-This repo demonstrates the first building block of Site Reliability Engineering (SRE).
+Metrics flow into CloudWatch.
+
+Dashboards visualize health in real time.
+
+Alarms trigger when thresholds are crossed.
+
+Alerts are delivered instantly via email/SMS to operators.
+
+This lab represents the first building block of Site Reliability Engineering (SRE): turning raw infrastructure into observable systems.
 
 🏗️ Architecture
 flowchart TD
@@ -46,73 +44,131 @@ AWS EC2 – Compute resource simulating workload
 
 Terraform – Infrastructure provisioning as code
 
-Bash – Deployment scripting & triggers
+Bash – Deployment scripting & automation
 
-CloudWatch Agent – System metrics collector
+CloudWatch Agent – Metrics collection (CPU, memory, disk, network)
 
 CloudWatch Dashboards – Visual monitoring panels
 
-CloudWatch Alarms – Event detection & alerting
+CloudWatch Alarms – Threshold-based detection
 
-SNS – Alert delivery pipeline
+SNS – Real-time notifications
 
 📂 Repository Structure
 cloud-infra-monitoring-lab/
-├── terraform/                # Infrastructure code (EC2, IAM, CloudWatch, SNS)
+├── terraform/                # Infrastructure as Code
 │   ├── main.tf
 │   ├── variables.tf
 │   └── outputs.tf
-├── scripts/                  # Deployment & setup scripts
+├── scripts/                  # Deployment & teardown automation
 │   ├── deploy.sh
 │   └── teardown.sh
-├── agent/                    # CloudWatch Agent config
+├── agent/                    # CloudWatch Agent configs
 │   └── cloudwatch-config.json
-├── dashboards/               # JSON definitions for dashboards
+├── dashboards/               # Dashboard JSON definitions
 │   └── ec2-dashboard.json
+├── screenshot/               # Dashboard & alert screenshots
 └── README.md                 # Project documentation
 
-🚀 Deployment Workflow
+🚀 Deployment Guide
 
-Clone repo to local machine.
+Clone this repo
 
-Run Terraform script to provision EC2, IAM roles, CloudWatch alarms, SNS.
+git clone https://github.com/Tommy813-lab/cloud-infra-monitoring-lab.git
+cd cloud-infra-monitoring-lab
 
-Bootstrap CloudWatch Agent via deploy.sh.
 
-Generate traffic load (Apache Bench / stress tool).
+Provision Infrastructure with Terraform
 
-Observe:
+cd terraform
+terraform init
+terraform plan
+terraform apply -auto-approve
 
-Dashboard updates in real-time.
 
-Alarm triggers when CPU > threshold.
+Deploy CloudWatch Agent
 
-SNS sends notification to your inbox/phone.
+./scripts/deploy.sh
+
+
+Generate Load (simulate traffic spike)
+
+ab -n 10000 -c 100 http://<EC2_PUBLIC_IP>/
+
+
+Observe Results
+
+Dashboards update in real time.
+
+Alarms fire when CPU > threshold.
+
+SNS sends notifications to email/SMS.
+
+📡 Metrics Flow
+flowchart LR
+   A[EC2 Instance] --> B[CloudWatch Agent]
+   B --> C[CloudWatch Metrics]
+   C --> D[Dashboards]
+   C --> E[Alarms]
+   E --> F[SNS Topic]
+   F --> G[Email / SMS Notification]
 
 📊 Example Dashboard
-graph LR
-    A[CPU Utilization] -->|Alarm Threshold| B[Alarm Trigger]
-    A --> C[CloudWatch Dashboard]
-    D[Memory Usage] --> C
-    E[Disk I/O] --> C
-    F[Network Traffic] --> C
 
+CPU Utilization (%)
 
-Dashboards track CPU, Memory, Disk, and Network metrics side-by-side for fast diagnosis.
+Memory Usage (%)
+
+Disk I/O
+
+Network In/Out (bytes)
+
+Dashboards combine these metrics into a single operational view so engineers can diagnose performance at a glance.
 
 ✅ Success Criteria
 
- EC2 instance provisioned via Terraform.
+ EC2 instance provisioned via Terraform
 
- CloudWatch Agent streams system metrics.
+ CloudWatch Agent streams system metrics
 
- Dashboards show live performance graphs.
+ Dashboards show live performance graphs
 
- Alarm fires when CPU > threshold.
+ Alarm fires when CPU > threshold
 
- Operator receives SNS notification.
+ SNS notification delivered to operator
 
+🧭 Learning Outcomes
 
-Configure monitoring in a way that actually supports operations.
+By completing this lab you’ll gain experience with:
 
-Design an end-to-end alerting pipeline that any SRE/Cloud team would want.
+Infrastructure as Code (Terraform modules)
+
+Cloud monitoring & alerting with CloudWatch
+
+Automation workflows using Bash
+
+Designing operational dashboards
+
+Creating feedback loops between infrastructure and humans
+
+🔮 Next Steps
+
+Expand to Auto Scaling Groups & Load Balancers
+
+Add cost monitoring with AWS Budgets + SNS
+
+Integrate CI/CD pipeline for Terraform deployment
+
+Add IAM least-privilege roles & security checks
+
+📌 About
+
+This project proves hands-on ability to:
+
+Automate provisioning with Terraform
+
+Configure monitoring that supports operations
+
+Build end-to-end alerting pipelines for real workloads
+
+It’s designed as a portfolio project for Cloud/SRE roles.
